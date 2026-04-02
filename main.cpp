@@ -1,7 +1,26 @@
+#include <chrono>
 #include <iostream>
+#include <thread>
 
 #include "src/timer.hpp"
 
+void wait_for_a_few_seconds(int seconds) {
+    std::cout << "I will sleep for " << seconds << " second(s)." << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(seconds));
+}
+
 int main() {
-  // Your driver program goes here
+    Timer timer;
+    std::cout << "Elapsed time before start: " << timer.elapsed() << std::endl;
+    timer.start();
+    wait_for_a_few_seconds(1);
+    timer.stop();
+    auto elapsed = timer.elapsed();
+    std::cout << "Elapsed time: " << elapsed << std::endl;
+    //timer.pretty_print();
+
+    //pretty_print() examples
+    //Timer::pretty_print(9761);
+    //Timer::pretty_print(9761);
+
 }
