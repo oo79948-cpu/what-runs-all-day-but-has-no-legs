@@ -40,41 +40,40 @@ void Timer::pretty_print() {
 }
 
 void Timer::pretty_print(int time) {
-    int hours = static_cast<int>(time / 3600);
-    int minutes = static_cast<int>((time / 60) % 60);
-    int seconds = static_cast<int>(time % 60);
+    int hours = time / 3600;
+    int minutes = time / 60 % 60;
+    int seconds = time % 60;
 
-    //if two of them are 0 then no 'and' and no commas
-    //if one of them us 0 then 'and'
-    //if none of them are 0 then commas
+    std::vector<std::string> segments;
 
-    // std::string timeHoursText = hours == 1 ? "hour" : "hours";
-    // std::string timeMinutesText = minutes == 1 ? "minute" : "minutes";
-    // std::string timeSecondsText = seconds == 1 ? "second" : "seconds";
-    //
-    // std::string hasHaveHoursText = hours == 1 ? "has" : "have";
-
-    if (time == 0) {
-        std::cout << "No time has passed" << std::endl;
-    } else if (time == 1 || time == 60 || time == 3600) {
-        if (time == 1) {
-            std::cout << "1 minute has passed" << std::endl;
-        }
-        if (time == 60) {
-            std::cout << "1 hour has passed" << std::endl;
-        }
-        if (time == 3600) {
-            std::cout << "1 minute has passed" << std::endl;
-        }
-        std::cout << "has passed." << std::endl;
-    } else {
-        std::cout << "have passed." << std::endl;
+    if (hours > 0) {
+        segments.push_back(hours == 1 ? "1 hour" : std::to_string(hours) + " hours");
+    }
+    if (minutes > 0) {
+        segments.push_back(minutes == 1 ? "1 minute" : std::to_string(minutes) + " minutes");
+    }
+    if (seconds > 0) {
+        segments.push_back(seconds == 1 ? "1 second" : std::to_string(seconds) + " seconds");
     }
 
-    //std::cout << hours << ":" << minutes << ":" << seconds << std::endl;
-}
+    if (segments.empty()) {
+        std::cout << "No time has passed." << std::endl;
+        return;
+    }
 
-//
-// std::string pretty_print() {
-//    return "Implement your code here!";
-// }
+    std::string ending = hours + minutes + seconds == 1 ? "has passed." : "have passed.";
+
+    if (segments.size() == 1) {
+        std::cout << segments[0] << " " << ending << std::endl;
+        return;
+    }
+
+    if (segments.size() == 2) {
+        std::cout << segments[0] << " and " << segments[1] << " " << ending << std::endl;
+        return;
+    }
+
+    if (segments.size() == 3) {
+        std::cout << segments[0] << ", " << segments[1] << ", and " << segments[2] << " " << ending << std::endl;
+    }
+}

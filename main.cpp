@@ -17,10 +17,15 @@ int main() {
     timer.stop();
     auto elapsed = timer.elapsed();
     std::cout << "Elapsed time: " << elapsed << std::endl;
-    //timer.pretty_print();
+    timer.pretty_print();
 
-    //pretty_print() examples
-    //Timer::pretty_print(9761);
-    //Timer::pretty_print(9761);
-
+    // pretty_print() examples
+    Timer::pretty_print(0);
+    Timer::pretty_print(1);
+    Timer::pretty_print(59);
+    Timer::pretty_print(60);
+    Timer::pretty_print(62);
+    Timer::pretty_print(125);
+    Timer::pretty_print(3600);
+    Timer::pretty_print(9623);
 }
